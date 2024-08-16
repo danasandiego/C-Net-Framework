@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentDatabase
+{
+    public class Student
+    {
+        public int StudentId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        
+    }
+    public class SchoolContext : DbContext
+    {
+        public DbSet<Student> Students { get; set; }
+    }
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            using (var ctx = new SchoolContext())
+            {
+                var stud = new Student() { FirstName = "Dana", LastName = "Santos"};
+
+                ctx.Students.Add(stud);
+                ctx.SaveChanges();
+
+                Console.Write("Student registered to system.");
+            }    
+        }
+    }
+}
